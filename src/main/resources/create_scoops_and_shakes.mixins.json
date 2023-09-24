@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ghasto.create_scoops_and_shakes.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "MixinBlazeBurnerBlock",
+    "MixinBlazeBurnerBlockEntity",
+    "MixinBlazeBurnerRenderer",
+    "MixinHeatCondition"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
