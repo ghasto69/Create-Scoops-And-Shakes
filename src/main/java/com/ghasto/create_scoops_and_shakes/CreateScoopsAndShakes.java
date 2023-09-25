@@ -1,45 +1,28 @@
 package com.ghasto.create_scoops_and_shakes;
 
-import com.chocohead.mm.api.ClassTinkerers;
-import com.simibubi.create.AllRecipeTypes;
+import com.ghasto.create_scoops_and_shakes.util.DontShowInTab;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.Create;
-
-import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
-import com.simibubi.create.content.processing.burner.BlazeBurnerRenderer;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-
-import com.simibubi.create.foundation.data.recipe.MixingRecipeGen;
-import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import com.tterrag.registrate.util.entry.RegistryEntry;
-
-import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
-import io.github.tropheusj.milk.Milk;
+import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.fabricmc.api.ModInitializer;
-
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-
-import net.minecraft.world.item.CreativeModeTab;
-
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-public class CreateScoopsAndShakes implements ModInitializer {
+public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntrypoint {
 	public static final String ID = "create_scoops_and_shakes";
 	public static final String NAME = "Create Scoops And Shakes";
 	public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
@@ -57,8 +40,31 @@ public class CreateScoopsAndShakes implements ModInitializer {
 		Arrays.stream(BlazeBurnerBlock.HeatLevel.values()).toList().forEach(v -> {
 			LOGGER.info("Blaze Burner Level: {}", v);
 		});
+		ModItems.register();
+		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
+				FabricItemGroup.builder()
+						.title(Component.literal(NAME).withStyle(TooltipHelper.Palette.STANDARD_CREATE.primary()))
+						.icon(() -> AllBlocks.BLAZE_BURNER.asStack())
+						.displayItems((c,p) -> {
+							REGISTRATE.getAll(Registries.ITEM).forEach(e -> {
+								if(!(e.get() instanceof DontShowInTab)) {
+									p.accept(e.get());
+								}
+							});
+						})
+						.build()
+		);
+		REGISTRATE.register();
 	}
 	public static ResourceLocation id(String path) {
 		return new ResourceLocation(ID, path);
+	}
+
+	@Override
+	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+		ExistingFileHelper existingFileHelper = ExistingFileHelper.withResourcesFromArg();
+		REGISTRATE.setupDatagen(pack, existingFileHelper);
+		ModLang.generate();
 	}
 }

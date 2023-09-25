@@ -67,7 +67,7 @@ dependencies {
 //    modCompileOnly("mezz.jei:jei-${minecraft_version}-common:${jei_fabric_version}")
 //    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}")
 //    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}")
-//    modCompileOnly("dev.emi:emi:${emi_version}")
+    modCompileOnly("maven.modrinth:emi:${emi_version}");
 }
 
 processResources {
@@ -85,7 +85,27 @@ processResources {
 		expand properties
 	}
 }
+loom {
+	runs {
+		datagen {
+			client()
 
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+			vmArg "-Dfabric-api.datagen.modid=create_scoops_and_shakes"
+			vmArg "-Dporting_lib.datagen.existing_resources=${file("src/main/resources")}"
+		}
+	}
+}
+sourceSets {
+	main {
+		resources {
+			srcDir("src/generated/resources")
+			exclude("src/generated/resources/.cache")
+		}
+	}
+}
 machete {
 	// disable machete locally for faster builds
 	enabled = buildNumber != null

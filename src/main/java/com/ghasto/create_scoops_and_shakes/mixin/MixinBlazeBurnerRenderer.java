@@ -1,5 +1,8 @@
 package com.ghasto.create_scoops_and_shakes.mixin;
 
+import com.chocohead.mm.api.ClassTinkerers;
+import com.ghasto.create_scoops_and_shakes.ModPartialModels;
+import com.ghasto.create_scoops_and_shakes.ModSpriteShifts;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -20,16 +23,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 
 import javax.annotation.Nullable;
 
 @Mixin(BlazeBurnerRenderer.class)
 public abstract class MixinBlazeBurnerRenderer {
-
-    @Shadow
-    protected static void draw(SuperByteBuffer buffer, float horizontalAngle, PoseStack ms, VertexConsumer vc) {
-    }
+    @Unique
+    private static BlazeBurnerBlock.HeatLevel COOLED = ClassTinkerers.getEnum(BlazeBurnerBlock.HeatLevel.class, "COOLED");
+    @Unique
+    private static BlazeBurnerBlock.HeatLevel FREEZING = ClassTinkerers.getEnum(BlazeBurnerBlock.HeatLevel.class, "FREEZING");
     /**
      * @author
      * @reason
@@ -56,6 +59,9 @@ public abstract class MixinBlazeBurnerRenderer {
         if (canDrawFlame && blockAbove) {
             SpriteShiftEntry spriteShift =
                     heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;
+            if(heatLevel.isAtLeast(COOLED)) {
+                spriteShift = heatLevel == FREEZING ? ModSpriteShifts.FREEZING_BURNER_FLAME : AllSpriteShifts.SUPER_BURNER_FLAME;
+            }
 
             float spriteWidth = spriteShift.getTarget()
                     .getU1()
@@ -85,7 +91,11 @@ public abstract class MixinBlazeBurnerRenderer {
         }
 
         PartialModel blazeModel;
-        if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.SEETHING)) {
+        if(heatLevel.isAtLeast(FREEZING)) {
+            blazeModel = blockAbove ? ModPartialModels.BLAZE_FREEZING_ACTIVE : ModPartialModels.BLAZE_FREEZING;
+        } else if(heatLevel.isAtLeast(COOLED)) {
+            blazeModel = blockAbove ? ModPartialModels.BLAZE_COOLED_ACTIVE : ModPartialModels.BLAZE_COOLED;
+        } else if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.SEETHING)) {
             blazeModel = blockAbove ? AllPartialModels.BLAZE_SUPER_ACTIVE : AllPartialModels.BLAZE_SUPER;
         } else if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING)) {
             blazeModel = blockAbove && heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.KINDLED) ? AllPartialModels.BLAZE_ACTIVE
@@ -136,6 +146,12 @@ public abstract class MixinBlazeBurnerRenderer {
                     : AllPartialModels.BLAZE_BURNER_RODS;
             PartialModel rodsModel2 = heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllPartialModels.BLAZE_BURNER_SUPER_RODS_2
                     : AllPartialModels.BLAZE_BURNER_RODS_2;
+            if(heatLevel.isAtLeast(COOLED)) {
+                rodsModel = heatLevel == FREEZING ? ModPartialModels.BLAZE_BURNER_FREEZING_RODS
+                        : AllPartialModels.BLAZE_BURNER_SUPER_RODS;
+                rodsModel2 = heatLevel == FREEZING ? ModPartialModels.BLAZE_BURNER_FREEZING_RODS_2
+                        : AllPartialModels.BLAZE_BURNER_SUPER_RODS_2;
+            }
 
             SuperByteBuffer rodsBuffer = CachedBufferer.partial(rodsModel, blockState);
             if (modelTransform != null)
@@ -153,5 +169,11 @@ public abstract class MixinBlazeBurnerRenderer {
         }
 
         ms.popPose();
+    }
+    @Unique
+    private static void draw(SuperByteBuffer buffer, float horizontalAngle, PoseStack ms, VertexConsumer vc) {
+        buffer.rotateCentered(Direction.UP, horizontalAngle)
+                .light(LightTexture.FULL_BRIGHT)
+                .renderInto(ms, vc);
     }
 }

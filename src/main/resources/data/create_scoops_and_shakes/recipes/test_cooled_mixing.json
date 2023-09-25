@@ -1,6 +1,6 @@
 {
   "type": "create:mixing",
-  "heatRequirement": "cooled",
+  "heatRequirement": "freezing",
   "ingredients": [
     {
       "item": "minecraft:copper_ingot"

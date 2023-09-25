@@ -6,10 +6,11 @@
   "mixins": [
     "MixinBlazeBurnerBlock",
     "MixinBlazeBurnerBlockEntity",
-    "MixinBlazeBurnerRenderer",
     "MixinHeatCondition"
   ],
   "client": [
+    "MixinBlazeBurnerRenderer",
+    "MixinCreateEmiAnimations"
   ],
   "injectors": {
     "defaultRequire": 1

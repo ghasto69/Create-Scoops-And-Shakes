@@ -1,6 +1,5 @@
 package com.ghasto.create_scoops_and_shakes;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.block.render.SpriteShiftEntry;
 import com.simibubi.create.foundation.block.render.SpriteShifter;
 
@@ -11,4 +10,6 @@ public class ModSpriteShifts {
     private static SpriteShiftEntry get(String originalLocation, String targetLocation) {
         return SpriteShifter.get(CreateScoopsAndShakes.id(originalLocation), CreateScoopsAndShakes.id(targetLocation));
     }
+
+    public static void init() {}
 }

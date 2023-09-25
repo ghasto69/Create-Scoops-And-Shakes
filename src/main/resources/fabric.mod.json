@@ -14,6 +14,12 @@
     "main": [
       "com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes"
     ],
+    "client": [
+      "com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakesClient"
+    ],
+    "fabric-datagen": [
+      "com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes"
+    ],
     "mm:early_risers": [
       "com.ghasto.create_scoops_and_shakes.code_modification.EarlyRiser"
     ]

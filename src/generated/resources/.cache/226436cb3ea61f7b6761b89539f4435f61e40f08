@@ -1,0 +1,4 @@
+// 1.20.1	2023-09-25T18:42:43.804074	Create Scoops And Shakes/Registrate Provider for create_scoops_and_shakes [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+ce9a82b2d02e4be9318fc6ed78af03b08c03bcac assets/create_scoops_and_shakes/lang/en_ud.json
+32ee4709a699aebe516acc397e46da73dba5061e assets/create_scoops_and_shakes/models/item/choco_ball.json
+8ccbecca1998d16fe7522882c33c7f6d9c864ea8 assets/create_scoops_and_shakes/lang/en_us.json
