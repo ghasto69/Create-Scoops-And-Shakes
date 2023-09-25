@@ -1,0 +1,22 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "cooled",
+  "ingredients": [
+    {
+      "amount": 40500,
+      "fluid": "create:honey",
+      "nbt": {}
+    },
+    {
+      "amount": 40500,
+      "fluid": "milk:still_milk",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "amount": 81000,
+      "fluid": "create:chocolate"
+    }
+  ]
+}

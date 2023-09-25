@@ -1,5 +1,5 @@
 {
+  "block.minecraft.air": "Icon Item",
   "create.recipe.heat_requirement.cooled": "Cooled",
-  "create.recipe.heat_requirement.freezing": "Freezing",
-  "item.create_scoops_and_shakes.choco_ball": "Choco Ball"
+  "create.recipe.heat_requirement.freezing": "Freezing"
 }

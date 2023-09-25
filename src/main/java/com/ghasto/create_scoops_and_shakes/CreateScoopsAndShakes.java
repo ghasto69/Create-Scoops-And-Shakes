@@ -1,7 +1,6 @@
 package com.ghasto.create_scoops_and_shakes;
 
 import com.ghasto.create_scoops_and_shakes.util.DontShowInTab;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -14,9 +13,11 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,14 +44,15 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 		ModItems.register();
 		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
 				FabricItemGroup.builder()
-						.title(Component.literal(NAME).withStyle(TooltipHelper.Palette.STANDARD_CREATE.primary()))
-						.icon(() -> AllBlocks.BLAZE_BURNER.asStack())
+						.title(Component.literal(NAME).withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
+						.icon(() -> ModItems.ICON_ITEM.asStack())
 						.displayItems((c,p) -> {
 							REGISTRATE.getAll(Registries.ITEM).forEach(e -> {
 								if(!(e.get() instanceof DontShowInTab)) {
 									p.accept(e.get());
 								}
 							});
+							p.accept(Items.SNOWBALL);
 						})
 						.build()
 		);
