@@ -41,7 +41,9 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 		Arrays.stream(BlazeBurnerBlock.HeatLevel.values()).toList().forEach(v -> {
 			LOGGER.info("Blaze Burner Level: {}", v);
 		});
+		ModBlocks.register();
 		ModItems.register();
+		ModBlockEntities.register();
 		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
 				FabricItemGroup.builder()
 						.title(Component.literal(NAME).withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
