@@ -24,12 +24,12 @@ public class IceCreamJarRenderer extends SmartBlockEntityRenderer<IceCreamJarBlo
 		SmartFluidTankBehaviour fluidTank = be.getBehaviour(SmartFluidTankBehaviour.TYPE);
 		FluidStack renderedFluid = fluidTank.getPrimaryTank().getRenderedFluid();
 		LerpedFloat fluidLevel = fluidTank.getPrimaryTank().getFluidLevel();
-		float xMin = 2 / 16f;
-		float xMax = 14 / 16f;
-		final float yMin = 2 / 16f;
-		final float yMax = yMin + 12 / 16f * fluidLevel.getValue();
-		final float zMin = 2 / 16f;
-		final float zMax = 14 / 16f;
-		FluidRenderer.renderFluidBox(renderedFluid, xMin, yMin, zMin, xMax, yMax, zMax,bufferSource,ms,light,false);
+		float xMin = 4.6f / 16f;
+		float xMax = 11.4f / 16f;
+		final float yMin = 1 / 16f;
+		final float yMax = yMin + 5 / 16f * fluidLevel.getValue();
+		final float zMin = 4.6f / 16f;
+		final float zMax = 11.4f / 16f;
+		FluidRenderer.renderFluidBox(renderedFluid, xMin, yMin, zMin, xMax, yMax, zMax,bufferSource,ms,light,true);
 	}
 }

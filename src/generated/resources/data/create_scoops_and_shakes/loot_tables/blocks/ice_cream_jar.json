@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_nbt",
+              "ops": [
+                {
+                  "op": "replace",
+                  "source": "Tanks",
+                  "target": "BlockEntityTag.Tanks"
+                }
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "create_scoops_and_shakes:ice_cream_jar"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "create_scoops_and_shakes:blocks/ice_cream_jar"
+}
