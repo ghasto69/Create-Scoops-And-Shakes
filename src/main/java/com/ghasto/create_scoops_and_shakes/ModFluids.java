@@ -1,8 +1,7 @@
 package com.ghasto.create_scoops_and_shakes;
 
-import com.simibubi.create.AllFluids;
-import com.simibubi.create.AllTags;
-import com.simibubi.create.Create;
+import static net.minecraft.world.item.Items.BUCKET;
+
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.FluidBuilder;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
@@ -15,12 +14,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.base.EmptyItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.material.Fluid;
-
-import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRATE;
-import static net.minecraft.world.item.Items.BUCKET;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ModFluids {
@@ -28,7 +22,7 @@ public class ModFluids {
 			standardFluid("vanilla_ice_cream")
 					.fluidProperties(p -> p.levelDecreasePerBlock(2)
 							.tickRate(25)
-							.flowSpeed(3)
+							.flowSpeed(4)
 							.blastResistance(100f))
 					.onRegisterAfter(Registries.ITEM, icecream -> {
 						Fluid source = icecream.getSource();
@@ -40,7 +34,7 @@ public class ModFluids {
 					})
 					.register();
 	public static FluidBuilder<SimpleFlowableFluid.Flowing, CreateRegistrate> standardFluid(String name) {
- 		return REGISTRATE.fluid(name, CreateScoopsAndShakes.id("block/fluid/" + name + "_still"), CreateScoopsAndShakes.id("block/fluid/" + name + "_flow"));
+ 		return CreateScoopsAndShakes.REGISTRATE.fluid(name, CreateScoopsAndShakes.id("block/fluid/" + name + "_still"), CreateScoopsAndShakes.id("block/fluid/" + name + "_flow"));
 	}
 	public static void register() {}
 }
