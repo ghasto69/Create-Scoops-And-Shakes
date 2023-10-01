@@ -43,6 +43,7 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 		});
 		ModBlocks.register();
 		ModItems.register();
+		ModFluids.register();
 		ModBlockEntities.register();
 		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
 				FabricItemGroup.builder()
