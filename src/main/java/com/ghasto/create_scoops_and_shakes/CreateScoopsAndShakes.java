@@ -45,6 +45,7 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 		ModItems.register();
 		ModFluids.register();
 		ModBlockEntities.register();
+		ModRecipeTypes.register();
 		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
 				FabricItemGroup.builder()
 						.title(Component.literal(NAME).withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))

@@ -1,9 +1,0 @@
-{
-  "block.create.blaze_burner": "Icon Item",
-  "block.create_scoops_and_shakes.ice_cream_jar": "Ice Cream Jar",
-  "block.create_scoops_and_shakes.vanilla_ice_cream": "Vanilla Ice Cream",
-  "create.recipe.heat_requirement.cooled": "Cooled",
-  "create.recipe.heat_requirement.freezing": "Freezing",
-  "fluid.create_scoops_and_shakes.vanilla_ice_cream": "Vanilla Ice Cream",
-  "item.create_scoops_and_shakes.vanilla_ice_cream_bucket": "Vanilla Ice Cream Bucket"
-}
