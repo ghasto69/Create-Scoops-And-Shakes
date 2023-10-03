@@ -15,4 +15,9 @@ public class BlenderBlock extends MechanicalMixerBlock {
 	public BlockEntityType<? extends MechanicalMixerBlockEntity> getBlockEntityType() {
 		return ModBlockEntities.BLENDER.get();
 	}
+
+	@Override
+	public SpeedLevel getMinimumRequiredSpeedLevel() {
+		return SpeedLevel.of(96);
+	}
 }

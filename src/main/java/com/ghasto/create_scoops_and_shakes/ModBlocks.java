@@ -59,8 +59,10 @@ public class ModBlocks {
 					.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
 					.addLayer(() -> RenderType::cutoutMipped)
 					.transform(BlockStressDefaults.setImpact(4.0))
-					//.item(AssemblyOperatorBlockItem::new)
-					//.transform(customItemModel())
+					.item(AssemblyOperatorBlockItem::new)
+					.transform(customItemModel())
 					.register();
+
 	public static void register() {}
+
 }

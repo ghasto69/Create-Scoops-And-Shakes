@@ -3,6 +3,7 @@ package com.ghasto.create_scoops_and_shakes.block.ice_cream_jar;
 import com.ghasto.create_scoops_and_shakes.ModBlockEntities;
 import com.ghasto.create_scoops_and_shakes.ModBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
@@ -52,7 +53,7 @@ public class IceCreamJarRenderer {
 			float xMin = -3.4f / 16f;
 			float xMax = 3.4f / 16f;
 			final float yMin = -7 / 16f;
-			final float yMax = -2 / 16f;
+			final float yMax = -2 / 16f * fluidLevel.getValue(); //<-- Appears to not work
 			final float zMin = -3.4f / 16f;
 			final float zMax = 3.4f / 16f;
 			FluidRenderer.renderFluidBox(renderedFluid, xMin, yMin, zMin, xMax, yMax, zMax, buffer, ms, light, true);

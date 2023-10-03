@@ -1,0 +1,13 @@
+// 1.20.1	2023-10-03T16:42:02.422136	Create Scoops And Shakes/Registrate Provider for create_scoops_and_shakes [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+bbca1ee73e29b14be5a62ea786da926928d6afb5 assets/create_scoops_and_shakes/lang/en_ud.json
+bbf6ba93eb9d96e2540b52a611e3d4e9370463e8 assets/create_scoops_and_shakes/blockstates/vanilla_ice_cream.json
+4bfa4562045b90db41307440508ee5ec2766a3a2 assets/create_scoops_and_shakes/models/item/icon_item.json
+7162896b4c3574817a5ca28c5b32016a36338760 data/create_scoops_and_shakes/recipes/mixing/honey_and_milk_to_chocolate.json
+bedeece1c72f3b512a09d6e8c53cdcbe22412d38 assets/create_scoops_and_shakes/models/item/ice_cream_jar.json
+2183a767eebd4693dbd8321c5721106f15812b9d assets/create_scoops_and_shakes/models/item/vanilla_ice_cream_bucket.json
+8ab8e4a5e3fecf5acadf5d69e08fc39c2223f2fa data/create_scoops_and_shakes/recipes/blending/sugar_from_sugarcane.json
+8dbfba4714f703353e9cf5797b78d6c6a51e468a data/create_scoops_and_shakes/recipes/mixing/vanilla_ice_cream.json
+a38cd83f781ec83481dc398f612a3b7f3e2aba9f assets/create_scoops_and_shakes/blockstates/ice_cream_jar.json
+ede5fc19345cb14773ca996d9f0deff8c00c2832 data/create_scoops_and_shakes/loot_tables/blocks/ice_cream_jar.json
+922becf3f9d06cd54e0e41274885517bd33b6aee assets/create_scoops_and_shakes/models/block/vanilla_ice_cream.json
+b15492d7c2e343fb1d0dfe32c438f0f68319be06 assets/create_scoops_and_shakes/lang/en_us.json

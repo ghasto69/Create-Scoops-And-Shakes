@@ -1,9 +1,11 @@
 package com.ghasto.create_scoops_and_shakes.block.blender;
 
+import com.ghasto.create_scoops_and_shakes.ModRecipeTypes;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.fluids.potion.PotionMixingRecipes;
 import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlockEntity;
 
+import com.simibubi.create.content.kinetics.mixer.MixerInstance;
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
 import com.simibubi.create.content.processing.basin.BasinBlockEntity;
 
@@ -35,7 +37,7 @@ public class BlenderBlockEntity extends MechanicalMixerBlockEntity {
 
 	@Override
 	protected List<Recipe<?>> getMatchingRecipes() {
-		List<Recipe<?>> matchingRecipes = super.getMatchingRecipes();
+		List<Recipe<?>> matchingRecipes = Collections.emptyList();
 
 		Optional<BasinBlockEntity> basin = getBasin();
 		if (!basin.isPresent())
@@ -49,12 +51,14 @@ public class BlenderBlockEntity extends MechanicalMixerBlockEntity {
 				.getItemStorage(null);
 		if (availableItems == null)
 			return matchingRecipes;
-
-		try (Transaction t = TransferUtil.getTransaction()) {
-			Container<>
+		if(getSpeed() < 96)
+			return super.getMatchingRecipes();
+		List<Recipe<Container>> blendingRecipes = level.getRecipeManager().getAllRecipesFor(ModRecipeTypes.BLENDING.getType());
+		blendingRecipes.forEach(recipe -> {
+			if(matchBasinRecipe(recipe)) {
+				matchingRecipes.add(recipe);
 			}
-		}
-
+		});
 		return matchingRecipes;
 	}
 }

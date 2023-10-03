@@ -23,5 +23,6 @@ public class ModBlockEntities {
 			.validBlocks(ModBlocks.BLENDER)
 			.renderer(() -> MechanicalMixerRenderer::new)
 			.register();
+
 	public static void register() {}
 }
