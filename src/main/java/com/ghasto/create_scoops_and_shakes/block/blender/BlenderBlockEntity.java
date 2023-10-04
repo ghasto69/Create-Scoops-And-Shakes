@@ -37,7 +37,7 @@ public class BlenderBlockEntity extends MechanicalMixerBlockEntity {
 
 	@Override
 	protected List<Recipe<?>> getMatchingRecipes() {
-		List<Recipe<?>> matchingRecipes = Collections.emptyList();
+		List<Recipe<?>> matchingRecipes = new ArrayList<>();
 
 		Optional<BasinBlockEntity> basin = getBasin();
 		if (!basin.isPresent())
