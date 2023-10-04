@@ -21,6 +21,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -60,5 +61,25 @@ public class BlenderBlockEntity extends MechanicalMixerBlockEntity {
 			}
 		});
 		return matchingRecipes;
+	}
+
+	@Override
+	protected Optional<BasinBlockEntity> getBasin() {
+			if (level == null)
+				return Optional.empty();
+			BlockEntity basinBE = level.getBlockEntity(worldPosition.above());
+			if (!(basinBE instanceof BasinBlockEntity))
+				return Optional.empty();
+			return Optional.of((BasinBlockEntity) basinBE);
+		}
+
+	@Override
+	public void tick() {
+		if(getBasin().isPresent()) {
+			if(getMatchingRecipes().isEmpty())
+				return;
+			running = true;
+		}
+		super.tick();
 	}
 }
