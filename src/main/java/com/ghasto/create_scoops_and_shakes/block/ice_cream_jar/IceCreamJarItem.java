@@ -26,6 +26,7 @@ public class IceCreamJarItem extends BlockItem {
 		if(stack.getTag() == null)
 			return;
 		be.readClient(stack.getTag());
-		tooltipComponents.add(be.fluidTankBehaviour.getPrimaryTank().getRenderedFluid().getDisplayName());
+		tooltipComponents.add(Component.literal(be.fluidTankBehaviour.getPrimaryTank().getRenderedFluid().getAmount() / 81 + "Mb ")
+				.append(be.fluidTankBehaviour.getPrimaryTank().getRenderedFluid().getDisplayName()));
 	}
 }
