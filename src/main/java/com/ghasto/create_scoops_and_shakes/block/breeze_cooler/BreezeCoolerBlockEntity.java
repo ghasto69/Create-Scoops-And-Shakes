@@ -7,8 +7,6 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.fluids.tank.FluidTankBlock;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -44,8 +42,8 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 	public static final int MAX_HEAT_CAPACITY = 10000;
 	public static final int INSERTION_THRESHOLD = 500;
 
-	protected com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType activeFuel;
-	protected int remainingBurnTime;
+	protected CoolerMode activeFuel;
+	protected int remainingcoolingTime;
 	protected LerpedFloat headAnimation;
 	protected LerpedFloat headAngle;
 	protected boolean isCreative;
@@ -54,23 +52,23 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 
 	public BreezeCoolerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		activeFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NONE;
-		remainingBurnTime = 0;
+		activeFuel = CoolerMode.NONE;
+		remainingcoolingTime = 0;
 		headAnimation = LerpedFloat.linear();
 		headAngle = LerpedFloat.angular();
 		isCreative = false;
 		goggles = false;
 
-		headAngle.startWithValue((AngleHelper.horizontalAngle(state.getOptionalValue(BlazeBurnerBlock.FACING)
+		headAngle.startWithValue((AngleHelper.horizontalAngle(state.getOptionalValue(BreezeCoolerBlock.FACING)
 				.orElse(Direction.SOUTH)) + 180) % 360);
 	}
 
-	public com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType getActiveFuel() {
+	public CoolerMode getActiveFuel() {
 		return activeFuel;
 	}
 
-	public int getRemainingBurnTime() {
-		return remainingBurnTime;
+	public int getRemainingcoolingTime() {
+		return remainingcoolingTime;
 	}
 
 	public boolean isCreative() {
@@ -84,33 +82,33 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 		if (level.isClientSide) {
 			tickAnimation();
 			if (!isVirtual())
-				spawnParticles(getHeatLevelFromBlock(), 1);
+				spawnParticles(getCoolerLevelFromBlock(), 1);
 			return;
 		}
 
 		if (isCreative)
 			return;
 
-		if (remainingBurnTime > 0)
-			remainingBurnTime--;
+		if (remainingcoolingTime > 0)
+			remainingcoolingTime--;
 
-		if (activeFuel == com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NORMAL)
+		if (activeFuel == CoolerMode.NORMAL)
 			updateBlockState();
-		if (remainingBurnTime > 0)
+		if (remainingcoolingTime > 0)
 			return;
 
-		if (activeFuel == com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.SPECIAL) {
-			activeFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NORMAL;
-			remainingBurnTime = MAX_HEAT_CAPACITY / 2;
+		if (activeFuel == CoolerMode.SPECIAL) {
+			activeFuel = CoolerMode.NORMAL;
+			remainingcoolingTime = MAX_HEAT_CAPACITY / 2;
 		} else
-			activeFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NONE;
+			activeFuel = CoolerMode.NONE;
 
 		updateBlockState();
 	}
 
 	@Environment(EnvType.CLIENT)
 	private void tickAnimation() {
-		boolean active = getHeatLevelFromBlock().isAtLeast(BlazeBurnerBlock.HeatLevel.FADING) && isValidBlockAbove();
+		boolean active = getCoolerLevelFromBlock().isAtLeast(BreezeCoolerBlock.CoolerLevel.FADING) && isValidBlockAbove();
 
 		if (!active) {
 			float target = 0;
@@ -133,7 +131,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 			headAngle.chase(target, .25f, LerpedFloat.Chaser.exp(5));
 			headAngle.tickChaser();
 		} else {
-			headAngle.chase((AngleHelper.horizontalAngle(getBlockState().getOptionalValue(BlazeBurnerBlock.FACING)
+			headAngle.chase((AngleHelper.horizontalAngle(getBlockState().getOptionalValue(BreezeCoolerBlock.FACING)
 					.orElse(Direction.SOUTH)) + 180) % 360, .125f, LerpedFloat.Chaser.EXP);
 			headAngle.tickChaser();
 		}
@@ -149,7 +147,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 	public void write(CompoundTag compound, boolean clientPacket) {
 		if (!isCreative) {
 			compound.putInt("fuelLevel", activeFuel.ordinal());
-			compound.putInt("burnTimeRemaining", remainingBurnTime);
+			compound.putInt("coolingTimeRemaining", remainingcoolingTime);
 		} else
 			compound.putBoolean("isCreative", true);
 		if (goggles)
@@ -161,88 +159,88 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 
 	@Override
 	protected void read(CompoundTag compound, boolean clientPacket) {
-		activeFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.values()[compound.getInt("fuelLevel")];
-		remainingBurnTime = compound.getInt("burnTimeRemaining");
+		activeFuel = CoolerMode.values()[compound.getInt("fuelLevel")];
+		remainingcoolingTime = compound.getInt("coolingTimeRemaining");
 		isCreative = compound.getBoolean("isCreative");
 		goggles = compound.contains("Goggles");
 		hat = compound.contains("TrainHat");
 		super.read(compound, clientPacket);
 	}
 
-	public BlazeBurnerBlock.HeatLevel getHeatLevelFromBlock() {
-		return BlazeBurnerBlock.getHeatLevelOf(getBlockState());
+	public BreezeCoolerBlock.CoolerLevel getCoolerLevelFromBlock() {
+		return BreezeCoolerBlock.getCoolerLevelOf(getBlockState());
 	}
 
 	public void updateBlockState() {
-		setBlockHeat(getHeatLevel());
+		setBlockHeat(getCoolerLevel());
 	}
 
-	protected void setBlockHeat(BlazeBurnerBlock.HeatLevel heat) {
-		BlazeBurnerBlock.HeatLevel inBlockState = getHeatLevelFromBlock();
+	protected void setBlockHeat(BreezeCoolerBlock.CoolerLevel heat) {
+		BreezeCoolerBlock.CoolerLevel inBlockState = getCoolerLevelFromBlock();
 		if (inBlockState == heat)
 			return;
-		level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BlazeBurnerBlock.HEAT_LEVEL, heat));
+		level.setBlockAndUpdate(worldPosition, getBlockState().setValue(BreezeCoolerBlock.COOLER_LEVEL, heat));
 		notifyUpdate();
 	}
 
 	/**
-	 * @return true if the heater updated its burn time and an item should be
+	 * @return true if the heater updated its cooling time and an item should be
 	 *         consumed
 	 */
 	protected boolean tryUpdateFuel(ItemStack itemStack, boolean forceOverflow, TransactionContext ctx) {
 		if (isCreative)
 			return false;
 
-		com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType newFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NONE;
-		int newBurnTime;
+		CoolerMode newFuel = CoolerMode.NONE;
+		int newcoolingTime;
 
-		if (AllTags.AllItemTags.BLAZE_BURNER_FUEL_SPECIAL.matches(itemStack)) {
-			newBurnTime = 3200;
-			newFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.SPECIAL;
+		if (itemStack.is(Items.DIAMOND)) {
+			newcoolingTime = 3200;
+			newFuel = CoolerMode.SPECIAL;
 		} else {
 			Integer fuel = FuelRegistry.INSTANCE.get(itemStack.getItem());
-			newBurnTime = fuel == null ? 0 : fuel;
-			if (newBurnTime > 0) {
-				newFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NORMAL;
-			} else if (AllTags.AllItemTags.BLAZE_BURNER_FUEL_REGULAR.matches(itemStack)) {
-				newBurnTime = 1600; // Same as coal
-				newFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NORMAL;
+			newcoolingTime = fuel == null ? 0 : fuel;
+			if (newcoolingTime > 0) {
+				newFuel = CoolerMode.NORMAL;
+			} else if (itemStack.is(Items.SNOWBALL)) {
+				newcoolingTime = 1600; // Same as coal
+				newFuel = CoolerMode.NORMAL;
 			}
 		}
 
-		if (newFuel == com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NONE)
+		if (newFuel == CoolerMode.NONE)
 			return false;
 		if (newFuel.ordinal() < activeFuel.ordinal())
 			return false;
 
 		if (newFuel == activeFuel) {
-			if (remainingBurnTime <= INSERTION_THRESHOLD) {
-				newBurnTime += remainingBurnTime;
-			} else if (forceOverflow && newFuel == com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NORMAL) {
-				if (remainingBurnTime < MAX_HEAT_CAPACITY) {
-					newBurnTime = Math.min(remainingBurnTime + newBurnTime, MAX_HEAT_CAPACITY);
+			if (remainingcoolingTime <= INSERTION_THRESHOLD) {
+				newcoolingTime += remainingcoolingTime;
+			} else if (forceOverflow && newFuel == CoolerMode.NORMAL) {
+				if (remainingcoolingTime < MAX_HEAT_CAPACITY) {
+					newcoolingTime = Math.min(remainingcoolingTime + newcoolingTime, MAX_HEAT_CAPACITY);
 				} else {
-					newBurnTime = remainingBurnTime;
+					newcoolingTime = remainingcoolingTime;
 				}
 			} else {
 				return false;
 			}
 		}
 
-		com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType finalNewFuel = newFuel;
-		int finalNewBurnTime = newBurnTime;
+		CoolerMode finalNewFuel = newFuel;
+		int finalNewcoolingTime = newcoolingTime;
 		TransactionCallback.onSuccess(ctx, () -> {
 			activeFuel = finalNewFuel;
-			remainingBurnTime = finalNewBurnTime;
+			remainingcoolingTime = finalNewcoolingTime;
 			if (level.isClientSide) {
-				spawnParticleBurst(activeFuel == com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.SPECIAL);
+				spawnParticleBurst(activeFuel == CoolerMode.SPECIAL);
 				return;
 			}
-			BlazeBurnerBlock.HeatLevel prev = getHeatLevelFromBlock();
+			BreezeCoolerBlock.CoolerLevel prev = getCoolerLevelFromBlock();
 			playSound();
 			updateBlockState();
 
-			if (prev != getHeatLevelFromBlock())
+			if (prev != getCoolerLevelFromBlock())
 				level.playSound(null, worldPosition, SoundEvents.BLAZE_AMBIENT, SoundSource.BLOCKS,
 						.125f + level.random.nextFloat() * .125f, 1.15f - level.random.nextFloat() * .25f);
 		});
@@ -251,19 +249,19 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 	}
 
 	protected void applyCreativeFuel() {
-		activeFuel = com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity.FuelType.NONE;
-		remainingBurnTime = 0;
+		activeFuel = CoolerMode.NONE;
+		remainingcoolingTime = 0;
 		isCreative = true;
 
-		BlazeBurnerBlock.HeatLevel next = getHeatLevelFromBlock().nextActiveLevel();
+		BreezeCoolerBlock.CoolerLevel next = getCoolerLevelFromBlock().nextActiveLevel();
 
 		if (level.isClientSide) {
-			spawnParticleBurst(next.isAtLeast(BlazeBurnerBlock.HeatLevel.SEETHING));
+			spawnParticleBurst(next.isAtLeast(BreezeCoolerBlock.CoolerLevel.FREEZING));
 			return;
 		}
 
 		playSound();
-		if (next == BlazeBurnerBlock.HeatLevel.FADING)
+		if (next == BreezeCoolerBlock.CoolerLevel.FADING)
 			next = next.nextActiveLevel();
 		setBlockHeat(next);
 	}
@@ -284,15 +282,15 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 				.125f + level.random.nextFloat() * .125f, .75f - level.random.nextFloat() * .25f);
 	}
 
-	protected BlazeBurnerBlock.HeatLevel getHeatLevel() {
-		BlazeBurnerBlock.HeatLevel level = BlazeBurnerBlock.HeatLevel.SMOULDERING;
+	protected BreezeCoolerBlock.CoolerLevel getCoolerLevel() {
+		BreezeCoolerBlock.CoolerLevel level = BreezeCoolerBlock.CoolerLevel.SMOULDERING;
 		switch (activeFuel) {
 			case SPECIAL:
-				level = BlazeBurnerBlock.HeatLevel.SEETHING;
+				level = BreezeCoolerBlock.CoolerLevel.FREEZING;
 				break;
 			case NORMAL:
-				boolean lowPercent = (double) remainingBurnTime / MAX_HEAT_CAPACITY < 0.0125;
-				level = lowPercent ? BlazeBurnerBlock.HeatLevel.FADING : BlazeBurnerBlock.HeatLevel.KINDLED;
+				boolean lowPercent = (double) remainingcoolingTime / MAX_HEAT_CAPACITY < 0.0125;
+				level = lowPercent ? BreezeCoolerBlock.CoolerLevel.FADING : BreezeCoolerBlock.CoolerLevel.KINDLED;
 				break;
 			default:
 			case NONE:
@@ -301,10 +299,10 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 		return level;
 	}
 
-	protected void spawnParticles(BlazeBurnerBlock.HeatLevel heatLevel, double burstMult) {
+	protected void spawnParticles(BreezeCoolerBlock.CoolerLevel CoolerLevel, double burstMult) {
 		if (level == null)
 			return;
-		if (heatLevel == BlazeBurnerBlock.HeatLevel.NONE)
+		if (CoolerLevel == BreezeCoolerBlock.CoolerLevel.NONE)
 			return;
 
 		RandomSource r = level.getRandom();
@@ -330,9 +328,9 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 						.scale((empty ? .25f : .5) + r.nextDouble() * .125f))
 				.add(0, .5, 0);
 
-		if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.SEETHING)) {
+		if (CoolerLevel.isAtLeast(BreezeCoolerBlock.CoolerLevel.FREEZING)) {
 			level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, v2.x, v2.y, v2.z, 0, yMotion, 0);
-		} else if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING)) {
+		} else if (CoolerLevel.isAtLeast(BreezeCoolerBlock.CoolerLevel.FADING)) {
 			level.addParticle(ParticleTypes.FLAME, v2.x, v2.y, v2.z, 0, yMotion, 0);
 		}
 		return;
@@ -354,7 +352,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 		}
 	}
 
-	public enum FuelType {
+	public enum CoolerMode {
 		NONE, NORMAL, SPECIAL
 	}
 

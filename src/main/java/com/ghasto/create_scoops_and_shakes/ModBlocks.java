@@ -65,7 +65,6 @@ public class ModBlocks {
 					.register();
 	public static final BlockEntry<BreezeCoolerBlock>
 	BREEZE_COOLER = REGISTRATE.block("breeze_cooler", BreezeCoolerBlock::new)
-			.simpleItem()
 			.register();
 
 	public static void register() {}

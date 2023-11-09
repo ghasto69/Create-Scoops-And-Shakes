@@ -63,17 +63,17 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE<BreezeCoolerBlockEntity>, IWrenchable {
 
-	public static final EnumProperty<CoolerLevel> COOLING_LEVEL = EnumProperty.create("blaze", CoolerLevel.class);
+	public static final EnumProperty<CoolerLevel> COOLER_LEVEL = EnumProperty.create("blaze", CoolerLevel.class);
 
 	public BreezeCoolerBlock(Properties properties) {
 		super(properties);
-		registerDefaultState(defaultBlockState().setValue(COOLING_LEVEL, CoolerLevel.NONE));
+		registerDefaultState(defaultBlockState().setValue(COOLER_LEVEL, CoolerLevel.NONE));
 	}
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		super.createBlockStateDefinition(builder);
-		builder.add(COOLING_LEVEL, FACING);
+		builder.add(COOLER_LEVEL, FACING);
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		if (state.getValue(COOLING_LEVEL) == CoolerLevel.NONE)
+		if (state.getValue(COOLER_LEVEL) == CoolerLevel.NONE)
 			return null;
 		return IBE.super.newBlockEntity(pos, state);
 	}
@@ -109,7 +109,7 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
 								 BlockHitResult blockRayTraceResult) {
 		ItemStack heldItem = player.getItemInHand(hand);
-		CoolerLevel COOLING = state.getValue(COOLING_LEVEL);
+		CoolerLevel COOLING = state.getValue(COOLER_LEVEL);
 
 		if (AllItems.GOGGLES.isIn(heldItem) && COOLING != CoolerLevel.NONE)
 			return onBlockEntityUse(world, pos, bbte -> {
@@ -132,18 +132,18 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 				return InteractionResult.SUCCESS;
 			});
 
-		if (COOLING == CoolerLevel.NONE) {
-			if (heldItem.getItem() instanceof FlintAndSteelItem) {
-				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
-						world.random.nextFloat() * 0.4F + 0.8F);
-				if (world.isClientSide)
-					return InteractionResult.SUCCESS;
-				heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-				world.setBlockAndUpdate(pos, AllBlocks.LIT_BLAZE_BURNER.getDefaultState());
-				return InteractionResult.SUCCESS;
-			}
-			return InteractionResult.PASS;
-		}
+//		if (COOLING == CoolerLevel.NONE) {
+//			if (heldItem.getItem() instanceof FlintAndSteelItem) {
+//				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F,
+//						world.random.nextFloat() * 0.4F + 0.8F);
+//				if (world.isClientSide)
+//					return InteractionResult.SUCCESS;
+//				heldItem.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+//				world.setBlockAndUpdate(pos, AllBlocks.LIT_BLAZE_BURNER.getDefaultState());
+//				return InteractionResult.SUCCESS;
+//			}
+//			return InteractionResult.PASS;
+//		}
 
 		boolean doNotConsume = player.isCreative();
 		boolean forceOverflow = !(player.isFake());
@@ -200,8 +200,8 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 		if (!(item instanceof BlazeBurnerBlockItem))
 			return defaultState;
 		CoolerLevel initialCOOLING =
-				((BlazeBurnerBlockItem) item).hasCapturedBlaze() ? CoolerLevel.CAPTURED : CoolerLevel.NONE;
-		return defaultState.setValue(COOLING_LEVEL, initialCOOLING)
+				((BlazeBurnerBlockItem) item).hasCapturedBlaze() ? CoolerLevel.SMOULDERING : CoolerLevel.NONE;
+		return defaultState.setValue(COOLER_LEVEL, initialCOOLING)
 				.setValue(FACING, context.getHorizontalDirection()
 						.getOpposite());
 	}
@@ -226,7 +226,7 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 
 	@Override
 	public int getAnalogOutputSignal(BlockState state, Level p_180641_2_, BlockPos p_180641_3_) {
-		return Math.max(0, state.getValue(COOLING_LEVEL)
+		return Math.max(0, state.getValue(COOLER_LEVEL)
 				.ordinal() - 1);
 	}
 
@@ -239,24 +239,24 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 	public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
 		if (random.nextInt(10) != 0)
 			return;
-		if (!state.getValue(COOLING_LEVEL)
-				.isAtLeast(CoolerLevel.CAPTURED))
+		if (!state.getValue(COOLER_LEVEL)
+				.isAtLeast(CoolerLevel.SMOULDERING))
 			return;
 		world.playLocalSound((double) ((float) pos.getX() + 0.5F), (double) ((float) pos.getY() + 0.5F),
 				(double) ((float) pos.getZ() + 0.5F), SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS,
 				0.5F + random.nextFloat(), random.nextFloat() * 0.7F + 0.6F, false);
 	}
 
-	public static CoolerLevel getHeatLevelOf(BlockState blockState) {
-		return blockState.hasProperty(BreezeCoolerBlock.COOLING_LEVEL) ? blockState.getValue(BreezeCoolerBlock.COOLING_LEVEL)
+	public static CoolerLevel getCoolerLevelOf(BlockState blockState) {
+		return blockState.hasProperty(BreezeCoolerBlock.COOLER_LEVEL) ? blockState.getValue(BreezeCoolerBlock.COOLER_LEVEL)
 				: CoolerLevel.NONE;
 	}
 
 	public static int getLight(BlockState state) {
-		CoolerLevel level = state.getValue(COOLING_LEVEL);
+		CoolerLevel level = state.getValue(COOLER_LEVEL);
 		return switch (level) {
 			case NONE -> 0;
-			case CAPTURED -> 8;
+			case SMOULDERING -> 8;
 			default -> 15;
 		};
 	}
@@ -272,14 +272,14 @@ public class BreezeCoolerBlock extends HorizontalDirectionalBlock implements IBE
 					.when(survivesExplosion)
 					.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
 							.setProperties(StatePropertiesPredicate.Builder.properties()
-									.hasProperty(COOLING_LEVEL, level))));
+									.hasProperty(COOLER_LEVEL, level))));
 		}
 		builder.withPool(poolBuilder.setRolls(ConstantValue.exactly(1)));
 		return builder;
 	}
 
 	public enum CoolerLevel implements StringRepresentable {
-		NONE,CAPTURED, COOLING, FREEZING;
+		NONE, SMOULDERING, FADING, KINDLED, FREEZING,;
 
 		public static CoolerLevel byIndex(int index) {
 			return values()[index];
