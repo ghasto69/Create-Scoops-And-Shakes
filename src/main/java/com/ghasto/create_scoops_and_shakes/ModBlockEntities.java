@@ -5,6 +5,7 @@ import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRA
 import com.ghasto.create_scoops_and_shakes.block.blender.BlenderBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.blender.BlenderInstance;
 import com.ghasto.create_scoops_and_shakes.block.blender.BlenderRenderer;
+import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -20,6 +21,9 @@ public class ModBlockEntities {
 			.instance(() -> BlenderInstance::new)
 			.validBlocks(ModBlocks.BLENDER)
 			.renderer(() -> BlenderRenderer::new)
+			.register();
+	public static final BlockEntityEntry<BreezeCoolerBlockEntity>
+	BREEZE_COOLER = REGISTRATE.blockEntity("breeze_cooler", BreezeCoolerBlockEntity::new)
 			.register();
 
 	public static void register() {}

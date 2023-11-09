@@ -1,6 +1,7 @@
 package com.ghasto.create_scoops_and_shakes;
 
 import com.ghasto.create_scoops_and_shakes.block.blender.BlenderBlock;
+import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlock;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlock;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
@@ -62,6 +63,10 @@ public class ModBlocks {
 					.item(AssemblyOperatorBlockItem::new)
 					.transform(customItemModel())
 					.register();
+	public static final BlockEntry<BreezeCoolerBlock>
+	BREEZE_COOLER = REGISTRATE.block("breeze_cooler", BreezeCoolerBlock::new)
+			.simpleItem()
+			.register();
 
 	public static void register() {}
 
