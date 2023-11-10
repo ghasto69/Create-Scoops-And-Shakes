@@ -1,14 +1,13 @@
 package com.ghasto.create_scoops_and_shakes;
 
-import com.ghasto.create_scoops_and_shakes.block.blender.BlenderBlock;
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlock;
+import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlockItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlock;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.kinetics.mixer.MechanicalMixerBlock;
-import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
+import com.simibubi.create.AllTags;
+import com.simibubi.create.content.processing.burner.BlazeBurnerInteractionBehaviour;
+import com.simibubi.create.content.processing.burner.BlazeBurnerMovementBehaviour;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -26,8 +25,11 @@ import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRATE;
+import static com.simibubi.create.AllInteractionBehaviours.interactionBehaviour;
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ModBlocks {
 	public static final BlockEntry<? extends Block>
@@ -51,21 +53,22 @@ public class ModBlocks {
 				p.simpleBlock(c.get(), AssetLookup.standardModel(c,p));
 			})
 			.register();
-	public static final BlockEntry<BlenderBlock> BLENDER =
-			REGISTRATE.block("blender", BlenderBlock::new)
-					.initialProperties(SharedProperties::stone)
-					.properties(p -> p.mapColor(MapColor.STONE))
-					.properties(BlockBehaviour.Properties::noOcclusion)
-					.transform(axeOrPickaxe())
-					.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+	public static final BlockEntry<BreezeCoolerBlock> BREEZE_COOLER =
+			REGISTRATE.block("breeze_cooler", BreezeCoolerBlock::new)
+					.initialProperties(SharedProperties::softMetal)
+					.properties(p -> p.mapColor(MapColor.COLOR_GRAY))
+					.properties(p -> p.lightLevel(BreezeCoolerBlock::getLight))
+					.transform(pickaxeOnly())
 					.addLayer(() -> RenderType::cutoutMipped)
-					.transform(BlockStressDefaults.setImpact(4.0))
-					.item(AssemblyOperatorBlockItem::new)
-					.transform(customItemModel())
+					.tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
+					.loot((lt, block) -> lt.add(block, BreezeCoolerBlock.buildLootTable()))
+					.blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+					.onRegister(movementBehaviour(new BlazeBurnerMovementBehaviour()))
+					.onRegister(interactionBehaviour(new BlazeBurnerInteractionBehaviour()))
+					.item(BreezeCoolerBlockItem::withBreeze)
+					.model(AssetLookup.customBlockItemModel("blaze_burner", "block_with_blaze"))
+					.build()
 					.register();
-	public static final BlockEntry<BreezeCoolerBlock>
-	BREEZE_COOLER = REGISTRATE.block("breeze_cooler", BreezeCoolerBlock::new)
-			.register();
 
 	public static void register() {}
 

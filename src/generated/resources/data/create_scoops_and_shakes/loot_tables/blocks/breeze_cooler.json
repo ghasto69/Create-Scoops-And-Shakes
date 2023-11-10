@@ -1,0 +1,124 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "none"
+              }
+            }
+          ],
+          "name": "create:empty_blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "smouldering"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "fading"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "kindled"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "seething"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "cooling"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        },
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            },
+            {
+              "block": "create_scoops_and_shakes:breeze_cooler",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "breeze": "freezing"
+              }
+            }
+          ],
+          "name": "create:blaze_burner"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "create_scoops_and_shakes:blocks/breeze_cooler"
+}

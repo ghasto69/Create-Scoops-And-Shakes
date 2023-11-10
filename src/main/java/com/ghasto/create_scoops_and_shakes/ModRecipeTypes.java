@@ -1,6 +1,5 @@
 package com.ghasto.create_scoops_and_shakes;
 
-import com.ghasto.create_scoops_and_shakes.block.blender.BlendingRecipe;
 import com.google.common.collect.ImmutableSet;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
@@ -28,7 +27,7 @@ import java.util.function.Supplier;
 
 
 public enum ModRecipeTypes implements IRecipeTypeInfo {
-		BLENDING(BlendingRecipe::new);
+;
 		private final ResourceLocation id;
 		private final RecipeSerializer<?> serializerObject;
 		@Nullable
