@@ -18,23 +18,29 @@ import net.minecraft.world.level.material.Fluid;
 
 @SuppressWarnings("UnstableApiUsage")
 public class ModFluids {
-	public static final FluidEntry<SimpleFlowableFluid.Flowing> VANILLA_ICE_CREAM =
-			standardFluid("vanilla_ice_cream")
-					.fluidProperties(p -> p.levelDecreasePerBlock(2)
-							.tickRate(25)
-							.flowSpeed(4)
-							.blastResistance(100f))
-					.onRegisterAfter(Registries.ITEM, icecream -> {
-						Fluid source = icecream.getSource();
-						// transfer values
-						FluidStorage.combinedItemApiProvider(source.getBucket()).register(context ->
-								new FullItemFluidStorage(context, bucket -> ItemVariant.of(BUCKET), FluidVariant.of(source), FluidConstants.BUCKET));
-						FluidStorage.combinedItemApiProvider(BUCKET).register(context ->
-								new EmptyItemFluidStorage(context, bucket -> ItemVariant.of(source.getBucket()), source, FluidConstants.BUCKET));
-					})
-					.register();
+	public static final FluidEntry<SimpleFlowableFluid.Flowing>
+			VANILLA_ICE_CREAM = iceCreamFluid("vanilla").register(),
+			CHOCOLATE_ICE_CREAM = iceCreamFluid("chocolate").register(),
+			BERRY_ICE_CREAM = iceCreamFluid("berry").register();
+
+
 	public static FluidBuilder<SimpleFlowableFluid.Flowing, CreateRegistrate> standardFluid(String name) {
  		return CreateScoopsAndShakes.REGISTRATE.fluid(name, CreateScoopsAndShakes.id("block/fluid/" + name + "_still"), CreateScoopsAndShakes.id("block/fluid/" + name + "_flow"));
+	}
+	public static FluidBuilder<SimpleFlowableFluid.Flowing, CreateRegistrate> iceCreamFluid(String name) {
+		return standardFluid(name + "_ice_cream")
+				.fluidProperties(p -> p.levelDecreasePerBlock(2)
+						.tickRate(25)
+						.flowSpeed(4)
+						.blastResistance(100f))
+				.onRegisterAfter(Registries.ITEM, icecream -> {
+					Fluid source = icecream.getSource();
+					// transfer values
+					FluidStorage.combinedItemApiProvider(source.getBucket()).register(context ->
+							new FullItemFluidStorage(context, bucket -> ItemVariant.of(BUCKET), FluidVariant.of(source), FluidConstants.BUCKET));
+					FluidStorage.combinedItemApiProvider(BUCKET).register(context ->
+							new EmptyItemFluidStorage(context, bucket -> ItemVariant.of(source.getBucket()), source, FluidConstants.BUCKET));
+				});
 	}
 	public static void register() {}
 }

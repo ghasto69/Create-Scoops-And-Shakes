@@ -1,9 +1,17 @@
 {
+  "block.create_scoops_and_shakes.berry_ice_cream": "ɯɐǝɹƆ ǝɔI ʎɹɹǝᗺ",
+  "block.create_scoops_and_shakes.breeze_cooler": "ɹǝןooƆ ǝzǝǝɹᗺ",
+  "block.create_scoops_and_shakes.chocolate_ice_cream": "ɯɐǝɹƆ ǝɔI ǝʇɐןoɔoɥƆ",
   "block.create_scoops_and_shakes.ice_cream_jar": "ɹɐſ ɯɐǝɹƆ ǝɔI",
   "block.create_scoops_and_shakes.vanilla_ice_cream": "ɯɐǝɹƆ ǝɔI ɐןןıuɐΛ",
   "create.recipe.heat_requirement.cooled": "pǝןooƆ",
   "create.recipe.heat_requirement.freezing": "buızǝǝɹℲ",
+  "fluid.create_scoops_and_shakes.berry_ice_cream": "ɯɐǝɹƆ ǝɔI ʎɹɹǝᗺ",
+  "fluid.create_scoops_and_shakes.chocolate_ice_cream": "ɯɐǝɹƆ ǝɔI ǝʇɐןoɔoɥƆ",
   "fluid.create_scoops_and_shakes.vanilla_ice_cream": "ɯɐǝɹƆ ǝɔI ɐןןıuɐΛ",
+  "item.create.empty_breeze_cooler": "ɹǝןooƆ ǝzǝǝɹᗺ ʎʇdɯƎ",
+  "item.create_scoops_and_shakes.berry_ice_cream_bucket": "ʇǝʞɔnᗺ ɯɐǝɹƆ ǝɔI ʎɹɹǝᗺ",
+  "item.create_scoops_and_shakes.chocolate_ice_cream_bucket": "ʇǝʞɔnᗺ ɯɐǝɹƆ ǝɔI ǝʇɐןoɔoɥƆ",
   "item.create_scoops_and_shakes.icon_item": "ɯǝʇI uoɔI",
   "item.create_scoops_and_shakes.vanilla_ice_cream_bucket": "ʇǝʞɔnᗺ ɯɐǝɹƆ ǝɔI ɐןןıuɐΛ"
 }

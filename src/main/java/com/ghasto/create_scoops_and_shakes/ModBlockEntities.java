@@ -2,16 +2,10 @@ package com.ghasto.create_scoops_and_shakes;
 
 import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRATE;
 
-
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerRenderer;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
-import com.simibubi.create.AllBlockEntityTypes;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity;
-import com.simibubi.create.content.processing.burner.BlazeBurnerRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class ModBlockEntities {

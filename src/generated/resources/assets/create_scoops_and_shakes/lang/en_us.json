@@ -1,9 +1,17 @@
 {
+  "block.create_scoops_and_shakes.berry_ice_cream": "Berry Ice Cream",
+  "block.create_scoops_and_shakes.breeze_cooler": "Breeze Cooler",
+  "block.create_scoops_and_shakes.chocolate_ice_cream": "Chocolate Ice Cream",
   "block.create_scoops_and_shakes.ice_cream_jar": "Ice Cream Jar",
   "block.create_scoops_and_shakes.vanilla_ice_cream": "Vanilla Ice Cream",
   "create.recipe.heat_requirement.cooled": "Cooled",
   "create.recipe.heat_requirement.freezing": "Freezing",
+  "fluid.create_scoops_and_shakes.berry_ice_cream": "Berry Ice Cream",
+  "fluid.create_scoops_and_shakes.chocolate_ice_cream": "Chocolate Ice Cream",
   "fluid.create_scoops_and_shakes.vanilla_ice_cream": "Vanilla Ice Cream",
+  "item.create.empty_breeze_cooler": "Empty Breeze Cooler",
+  "item.create_scoops_and_shakes.berry_ice_cream_bucket": "Berry Ice Cream Bucket",
+  "item.create_scoops_and_shakes.chocolate_ice_cream_bucket": "Chocolate Ice Cream Bucket",
   "item.create_scoops_and_shakes.icon_item": "Icon Item",
   "item.create_scoops_and_shakes.vanilla_ice_cream_bucket": "Vanilla Ice Cream Bucket"
 }

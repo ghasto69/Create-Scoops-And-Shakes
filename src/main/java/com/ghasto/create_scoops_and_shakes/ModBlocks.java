@@ -1,5 +1,10 @@
 package com.ghasto.create_scoops_and_shakes;
 
+import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRATE;
+import static com.simibubi.create.AllInteractionBehaviours.interactionBehaviour;
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlock;
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlockItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlock;
@@ -23,13 +28,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-
-import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRATE;
-import static com.simibubi.create.AllInteractionBehaviours.interactionBehaviour;
-import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
-import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ModBlocks {
 	public static final BlockEntry<? extends Block>
@@ -66,7 +64,7 @@ public class ModBlocks {
 					.onRegister(movementBehaviour(new BlazeBurnerMovementBehaviour()))
 					.onRegister(interactionBehaviour(new BlazeBurnerInteractionBehaviour()))
 					.item(BreezeCoolerBlockItem::withBreeze)
-					.model(AssetLookup.customBlockItemModel("blaze_burner", "block_with_blaze"))
+					.model(AssetLookup.customBlockItemModel("breeze_cooler", "block_with_breeze"))
 					.build()
 					.register();
 
