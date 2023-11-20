@@ -3,7 +3,9 @@ package com.ghasto.create_scoops_and_shakes;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.ghasto.create_scoops_and_shakes.util.DontShowInTab;
 import com.simibubi.create.AllCreativeModeTabs;
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.Create;
+import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -40,6 +42,7 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 	public static final BlazeBurnerBlock.HeatLevel COOLING_LEVEL = ClassTinkerers.getEnum(BlazeBurnerBlock.HeatLevel.class, "COOLING");
 	public static final BlazeBurnerBlock.HeatLevel FREEZING_LEVEL = ClassTinkerers.getEnum(BlazeBurnerBlock.HeatLevel.class, "FREEZING");
 	public static final HeatCondition FREEZING_CONDITION = ClassTinkerers.getEnum(HeatCondition.class, "FREEZING");
+	public static final HeatCondition COOLING_CONDITION = ClassTinkerers.getEnum(HeatCondition.class, "COOLING");
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Create addon mod [{}] is loading alongside Create [{}]!", NAME, Create.VERSION);
@@ -70,7 +73,6 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 	public static ResourceLocation id(String path) {
 		return new ResourceLocation(ID, path);
 	}
-
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();

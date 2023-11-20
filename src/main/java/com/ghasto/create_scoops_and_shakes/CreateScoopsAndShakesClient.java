@@ -1,6 +1,7 @@
 package com.ghasto.create_scoops_and_shakes;
 
 import com.simibubi.create.AllFluids;
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 
 import com.simibubi.create.foundation.fluid.SmartFluidTank;
@@ -22,7 +23,6 @@ import java.util.List;
 public class CreateScoopsAndShakesClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ModSpriteShifts.init();
-        ModPartialModels.register();
+        ModPartialModels.register();ModSpriteShifts.init();
 	}
 }

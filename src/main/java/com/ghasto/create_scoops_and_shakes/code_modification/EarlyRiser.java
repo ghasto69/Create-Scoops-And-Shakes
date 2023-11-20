@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class EarlyRiser implements Runnable{
 	@Override
 	public void run() {
-		LoggerFactory.getLogger("Create Scoops And Shakes Early Riser").info("Injecting COOLED and FREEZING into HeatLevel");
+		LoggerFactory.getLogger("Create Scoops And Shakes Early Riser").info("Injecting COOLING and FREEZING into HeatLevel");
 		EnumAdder heatlevel =  ClassTinkerers.enumBuilder("com.simibubi.create.content.processing.burner.BlazeBurnerBlock$HeatLevel");
 		heatlevel.addEnum("COOLING").addEnum("FREEZING").build();
 		ClassTinkerers.enumBuilder("com.simibubi.create.content.processing.burner.BlazeBurnerBlockEntity$FuelType").addEnum("COOLING").addEnum("FREEZING").build();

@@ -1,0 +1,9 @@
+{
+  "parent": "block/block",
+  "loader": "porting_lib:obj",
+  "flip-v": true,
+  "model": "create:models/block/blaze_burner/blaze_flame.obj",
+  "textures": {
+    "0": "create_scoops_and_shakes:block/breeze_cooler_effect"
+  }
+}

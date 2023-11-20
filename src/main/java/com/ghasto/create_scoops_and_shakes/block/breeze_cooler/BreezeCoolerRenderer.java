@@ -1,5 +1,8 @@
 package com.ghasto.create_scoops_and_shakes.block.breeze_cooler;
 
+import com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes;
+import com.ghasto.create_scoops_and_shakes.ModPartialModels;
+import com.ghasto.create_scoops_and_shakes.ModSpriteShifts;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -94,8 +97,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 		ms.pushPose();
 
 		if (canDrawFlame && blockAbove) {
-			SpriteShiftEntry spriteShift =
-					heatLevel == BlazeBurnerBlock.HeatLevel.SEETHING ? AllSpriteShifts.SUPER_BURNER_FLAME : AllSpriteShifts.BURNER_FLAME;
+			SpriteShiftEntry spriteShift = heatLevel == CreateScoopsAndShakes.FREEZING_LEVEL ? ModSpriteShifts.COOLER_EFFECT_FREEZING : ModSpriteShifts.COOLER_EFFECT;
 
 			float spriteWidth = spriteShift.getTarget()
 					.getU1()
@@ -117,7 +119,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 			uScroll = uScroll - Math.floor(uScroll);
 			uScroll = uScroll * spriteWidth / 2;
 
-			SuperByteBuffer flameBuffer = CachedBufferer.partial(AllPartialModels.BLAZE_BURNER_FLAME, blockState);
+			SuperByteBuffer flameBuffer = CachedBufferer.partial(ModPartialModels.breeze_cooler_effect, blockState);
 			if (modelTransform != null)
 				flameBuffer.transform(modelTransform);
 			flameBuffer.shiftUVScrolling(spriteShift, (float) uScroll, (float) vScroll);
@@ -126,12 +128,12 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 
 		PartialModel blazeModel;
 		if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.SEETHING)) {
-			blazeModel = blockAbove ? AllPartialModels.BLAZE_SUPER_ACTIVE : AllPartialModels.BLAZE_SUPER;
+			blazeModel = blockAbove ? ModPartialModels.breeze_FREEZING_ACTIVE : ModPartialModels.breeze_FREEZING;
 		} else if (heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.FADING)) {
-			blazeModel = blockAbove && heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.KINDLED) ? AllPartialModels.BLAZE_ACTIVE
-					: AllPartialModels.BLAZE_IDLE;
+			blazeModel = blockAbove && heatLevel.isAtLeast(BlazeBurnerBlock.HeatLevel.KINDLED) ? ModPartialModels.breeze_ACTIVE
+					: ModPartialModels.breeze_IDLE;
 		} else {
-			blazeModel = AllPartialModels.BLAZE_INERT;
+			blazeModel = ModPartialModels.breeze_INERT;
 		}
 
 		SuperByteBuffer blazeBuffer = CachedBufferer.partial(blazeModel, blockState);
@@ -141,7 +143,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 		draw(blazeBuffer, horizontalAngle, ms, solid);
 
 		if (drawGoggles) {
-			PartialModel gogglesModel = blazeModel == AllPartialModels.BLAZE_INERT
+			PartialModel gogglesModel = blazeModel == ModPartialModels.breeze_INERT
 					? AllPartialModels.BLAZE_GOGGLES_SMALL : AllPartialModels.BLAZE_GOGGLES;
 
 			SuperByteBuffer gogglesBuffer = CachedBufferer.partial(gogglesModel, blockState);
@@ -156,7 +158,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 			if (modelTransform != null)
 				hatBuffer.transform(modelTransform);
 			hatBuffer.translate(0, headY, 0);
-			if (blazeModel == AllPartialModels.BLAZE_INERT) {
+			if (blazeModel == ModPartialModels.breeze_INERT) {
 				hatBuffer.translateY(0.5f)
 						.centre()
 						.scale(0.75f)
@@ -181,15 +183,15 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 			if (modelTransform != null)
 				rodsBuffer.transform(modelTransform);
 			rodsBuffer.translate(0, offset1 + animation + .125f, 0)
-					.light(LightTexture.FULL_BRIGHT)
-					.renderInto(ms, solid);
+					.light(LightTexture.FULL_BRIGHT);
+//					.renderInto(ms, solid);
 
 			SuperByteBuffer rodsBuffer2 = CachedBufferer.partial(rodsModel2, blockState);
 			if (modelTransform != null)
 				rodsBuffer2.transform(modelTransform);
 			rodsBuffer2.translate(0, offset2 + animation - 3 / 16f, 0)
-					.light(LightTexture.FULL_BRIGHT)
-					.renderInto(ms, solid);
+					.light(LightTexture.FULL_BRIGHT);
+//					.renderInto(ms, solid);
 		}
 
 		ms.popPose();

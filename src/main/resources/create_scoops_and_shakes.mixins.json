@@ -4,8 +4,10 @@
   "package": "com.ghasto.create_scoops_and_shakes.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinHeatCondition"
   ],
   "client": [
+    "MixinCreateEmiAnimations"
   ],
   "injectors": {
     "defaultRequire": 1

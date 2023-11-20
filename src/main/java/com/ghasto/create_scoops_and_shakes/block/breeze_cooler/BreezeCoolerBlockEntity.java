@@ -326,7 +326,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 				.isEmpty();
 
 		if (empty || r.nextInt(8) == 0)
-			level.addParticle(ParticleTypes.LARGE_SMOKE, v.x, v.y, v.z, 0, 0, 0);
+			level.addParticle(ParticleTypes.SNOWFLAKE, v.x, v.y, v.z, 0, 0, 0);
 
 		double yMotion = empty ? .0625f : r.nextDouble() * .0125f;
 		Vec3 v2 = c.add(VecHelper.offsetRandomly(Vec3.ZERO, r, .5f)
@@ -338,7 +338,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 		if (CoolerLevel.isAtLeast(FREEZING_LEVEL)) {
 			level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, v2.x, v2.y, v2.z, 0, yMotion, 0);
 		} else if (CoolerLevel.isAtLeast(HeatLevel.FADING)) {
-			level.addParticle(ParticleTypes.FLAME, v2.x, v2.y, v2.z, 0, yMotion, 0);
+			level.addParticle(ParticleTypes.SNOWFLAKE, v2.x, v2.y, v2.z, 0, yMotion, 0);
 		}
 		return;
 	}
@@ -354,7 +354,7 @@ public class BreezeCoolerBlockEntity extends SmartBlockEntity {
 					.add(0, .125, 0);
 			Vec3 m = offset.scale(1 / 32f);
 
-			level.addParticle(soulFlame ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME, v.x, v.y, v.z, m.x, m.y,
+			level.addParticle(soulFlame ? ParticleTypes.FALLING_OBSIDIAN_TEAR : ParticleTypes.SNOWFLAKE, v.x, v.y, v.z, m.x, m.y,
 					m.z);
 		}
 	}
