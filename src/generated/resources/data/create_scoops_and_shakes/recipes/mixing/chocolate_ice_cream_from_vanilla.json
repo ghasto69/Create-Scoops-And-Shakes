@@ -1,0 +1,27 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "cooling",
+  "ingredients": [
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "item": "minecraft:cocoa_beans"
+    },
+    {
+      "amount": 81000,
+      "fluid": "create_scoops_and_shakes:vanilla_ice_cream",
+      "nbt": {}
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "amount": 81000,
+      "fluid": "create_scoops_and_shakes:chocolate_ice_cream"
+    }
+  ]
+}

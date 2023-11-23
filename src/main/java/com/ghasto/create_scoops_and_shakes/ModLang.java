@@ -4,8 +4,8 @@ import static com.ghasto.create_scoops_and_shakes.CreateScoopsAndShakes.REGISTRA
 
 public class ModLang {
     public static void generate() {
-        lang("create.recipe.heat_requirement.freezing", "Freezing");
-        lang("create.recipe.heat_requirement.cooled", "Cooled");
+        lang("create.recipe.heat_requirement.freezing", "Frozen");
+        lang("create.recipe.heat_requirement.cooling", "Cooled");
     }
     public static void lang(String key, String translation) {
         REGISTRATE.addRawLang(key, translation);

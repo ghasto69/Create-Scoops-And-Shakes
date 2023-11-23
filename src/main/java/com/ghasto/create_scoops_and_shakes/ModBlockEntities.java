@@ -6,6 +6,7 @@ import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlock
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerRenderer;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
+import com.simibubi.create.content.fluids.spout.SpoutBlockEntity;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class ModBlockEntities {

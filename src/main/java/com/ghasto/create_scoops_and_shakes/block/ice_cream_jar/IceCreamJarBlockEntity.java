@@ -1,6 +1,7 @@
 package com.ghasto.create_scoops_and_shakes.block.ice_cream_jar;
 
 import com.simibubi.create.AllFluids;
+import com.simibubi.create.api.behaviour.BlockSpoutingBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 
@@ -23,7 +24,8 @@ import java.util.List;
 
 public class IceCreamJarBlockEntity extends SmartBlockEntity implements SidedStorageBlockEntity {
 	Storage<FluidVariant> fluidStorage;
-	SmartFluidTankBehaviour fluidTankBehaviour;
+	public SmartFluidTankBehaviour fluidTankBehaviour;
+
 	boolean contentsChanged;
 	public IceCreamJarBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -37,12 +39,21 @@ public class IceCreamJarBlockEntity extends SmartBlockEntity implements SidedSto
 		behaviours.add(fluidTankBehaviour);
 	}
 
+	@Override
+	public void read(CompoundTag tag, boolean clientPacket) {
+		super.read(tag, clientPacket);
+	}
+
 	@Nullable
 	@Override
 	public Storage<FluidVariant> getFluidStorage(@Nullable Direction face) {
 		return fluidStorage;
 	}
 
+	@Override
+	public void write(CompoundTag tag, boolean clientPacket) {
+		super.write(tag, clientPacket);
+	}
 
 	@Override
 	public void tick() {

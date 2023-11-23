@@ -1,6 +1,8 @@
 package com.ghasto.create_scoops_and_shakes;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarItem;
+import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
 import com.ghasto.create_scoops_and_shakes.util.DontShowInTab;
 import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.AllSpriteShifts;
@@ -18,10 +20,13 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,20 +59,7 @@ public class CreateScoopsAndShakes implements ModInitializer, DataGeneratorEntry
 		ModFluids.register();
 		ModBlockEntities.register();
 		ModRecipeTypes.register();
-		REGISTRATE.simple("tab",Registries.CREATIVE_MODE_TAB, () ->
-				FabricItemGroup.builder()
-						.title(Component.literal(NAME).withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
-						.icon(() -> ModItems.ICON_ITEM.asStack())
-						.displayItems((c,p) -> {
-							REGISTRATE.getAll(Registries.ITEM).forEach(e -> {
-								if(!(e.get() instanceof DontShowInTab)) {
-									p.accept(e.get());
-								}
-							});
-							p.accept(Items.SNOWBALL);
-						})
-						.build()
-		);
+		ModCreativeModTabs.register();
 		REGISTRATE.register();
 	}
 	public static ResourceLocation id(String path) {

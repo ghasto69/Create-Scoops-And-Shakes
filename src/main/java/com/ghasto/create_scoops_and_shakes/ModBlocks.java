@@ -8,6 +8,7 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlock;
 import com.ghasto.create_scoops_and_shakes.block.breeze_cooler.BreezeCoolerBlockItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlock;
+import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarBlockEntity;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarItem;
 import com.ghasto.create_scoops_and_shakes.block.ice_cream_jar.IceCreamJarRenderer;
 import com.simibubi.create.AllTags;
@@ -19,6 +20,7 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -64,7 +66,7 @@ public class ModBlocks {
 					.onRegister(movementBehaviour(new BlazeBurnerMovementBehaviour()))
 					.onRegister(interactionBehaviour(new BlazeBurnerInteractionBehaviour()))
 					.item(BreezeCoolerBlockItem::withBreeze)
-					.model(AssetLookup.customBlockItemModel("breeze_cooler", "block_with_breeze"))
+					.model(AssetLookup.customBlockItemModel("breeze_cooler", "block"))
 					.build()
 					.register();
 

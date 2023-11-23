@@ -36,7 +36,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 	public BreezeCoolerRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
-	protected void renderSafe(BreezeCoolerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource,
+	public void renderSafe(BreezeCoolerBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource,
 							  int light, int overlay) {
 		BlazeBurnerBlock.HeatLevel heatLevel = be.getCoolerLevelFromBlock();
 		if (heatLevel == BlazeBurnerBlock.HeatLevel.NONE)
@@ -78,9 +78,7 @@ public class BreezeCoolerRenderer extends SafeBlockEntityRenderer<BreezeCoolerBl
 				false, drawGoggles, drawHat, hashCode);
 	}
 
-	private static void renderShared(PoseStack ms, @Nullable PoseStack modelTransform, MultiBufferSource bufferSource,
-									 Level level, BlockState blockState, BlazeBurnerBlock.HeatLevel heatLevel, float animation, float horizontalAngle,
-									 boolean canDrawFlame, boolean drawGoggles, boolean drawHat, int hashCode) {
+	private static void renderShared(PoseStack ms, @Nullable PoseStack modelTransform, MultiBufferSource bufferSource, Level level, BlockState blockState, BlazeBurnerBlock.HeatLevel heatLevel, float animation, float horizontalAngle, boolean canDrawFlame, boolean drawGoggles, boolean drawHat, int hashCode) {
 
 		boolean blockAbove = animation > 0.125f;
 		float time = AnimationTickHolder.getRenderTime(level);

@@ -33,6 +33,7 @@ public class ModFluids {
 						.tickRate(25)
 						.flowSpeed(4)
 						.blastResistance(100f))
+				.tag(ModTags.ModFluidTags.ICE_CREAM.get())
 				.onRegisterAfter(Registries.ITEM, icecream -> {
 					Fluid source = icecream.getSource();
 					// transfer values

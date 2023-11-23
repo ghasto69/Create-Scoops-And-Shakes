@@ -1,0 +1,38 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "freezing",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "amount": 81000,
+      "fluidTag": "c:milk"
+    }
+  ],
+  "processingTime": 150,
+  "results": [
+    {
+      "amount": 81000,
+      "fluid": "create_scoops_and_shakes:berry_ice_cream"
+    }
+  ]
+}

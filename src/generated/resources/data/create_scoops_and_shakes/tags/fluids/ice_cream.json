@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "create_scoops_and_shakes:flowing_vanilla_ice_cream",
+    "create_scoops_and_shakes:vanilla_ice_cream",
+    "create_scoops_and_shakes:flowing_chocolate_ice_cream",
+    "create_scoops_and_shakes:chocolate_ice_cream",
+    "create_scoops_and_shakes:flowing_berry_ice_cream",
+    "create_scoops_and_shakes:berry_ice_cream"
+  ]
+}

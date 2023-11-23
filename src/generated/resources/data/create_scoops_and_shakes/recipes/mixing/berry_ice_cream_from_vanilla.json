@@ -1,0 +1,27 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "cooling",
+  "ingredients": [
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "item": "minecraft:sweet_berries"
+    },
+    {
+      "amount": 81000,
+      "fluid": "create_scoops_and_shakes:vanilla_ice_cream",
+      "nbt": {}
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "amount": 81000,
+      "fluid": "create_scoops_and_shakes:berry_ice_cream"
+    }
+  ]
+}

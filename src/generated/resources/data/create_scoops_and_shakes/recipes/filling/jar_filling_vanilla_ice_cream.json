@@ -1,0 +1,59 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "create_scoops_and_shakes:ice_cream_jar"
+    },
+    {
+      "amount": 40500,
+      "fluid": "create_scoops_and_shakes:vanilla_ice_cream",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "create_scoops_and_shakes:ice_cream_jar",
+      "nbt": {
+        "BlockEntityTag": {
+          "Tanks": [
+            {
+              "Level": {
+                "Force": "1b",
+                "Speed": "0.25f",
+                "Target": "0.0f",
+                "Value": "0.0f"
+              },
+              "TankContent": {
+                "Amount": "40500L",
+                "Capacity": "40500L",
+                "Variant": {
+                  "fluid": "create_scoops_and_shakes:vanilla_ice_cream"
+                }
+              }
+            }
+          ]
+        },
+        "Tanks": [
+          {
+            "Level": {
+              "Force": "1b",
+              "Speed": "0.25f",
+              "Target": "0.0f",
+              "Value": "0.0f"
+            },
+            "TankContent": {
+              "Amount": "40500L",
+              "Capacity": "40500L",
+              "Variant": {
+                "fluid": "create_scoops_and_shakes:vanilla_ice_cream"
+              }
+            }
+          }
+        ],
+        "display": {
+          "Name": "{\"extra\":[{\"text\":\" \"},{\"translate\":\"block.create_scoops_and_shakes.ice_cream_jar\"}],\"translate\":\"block.create_scoops_and_shakes.vanilla_ice_cream\"}"
+        }
+      }
+    }
+  ]
+}
